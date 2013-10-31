@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "GaussianProcess.h"
+#include "gaussian_process.h"
 
 using namespace std;
 
@@ -21,7 +21,7 @@ int main (int argc, char *argv[])
     double *t = new double[length];
     double *x = new double[length];
 
-    GaussianProcess(t, x, length, dt, mean, sf, tau);
+    gaussian_process(t, x, length, dt, mean, sf, tau);
 
     for (int i; i < length; i++) {
         cout << t[i] << ' ' << x[i] << '\n';
