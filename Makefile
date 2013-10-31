@@ -1,7 +1,7 @@
 CC=g++
 CFLAGS=-c -Wall -fopenmp
 #LDFLAGS=-fopenmp
-SOURCES=licsim.c++
+SOURCES=licsim.c++ gaussian_process.c++ transfer_convolutions.c++
 OBJECTS=$(SOURCES:.cpp=.o)
 EXECUTABLE=licsim
 
