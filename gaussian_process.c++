@@ -1,6 +1,6 @@
-#include "GaussianProcess.h"
+#include "gaussian_process.h"
 
-void GaussianProcess(double* t, double* x, int length, double dt, double mean, double sf, double tau) {
+void gaussian_process(double* t, double* x, int length, double dt, double mean, double sf, double tau) {
 
     // Based on equation 6 in MacLeod et al. 2010
     double exponential = exp(-dt/tau);
