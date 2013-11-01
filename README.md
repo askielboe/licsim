@@ -1,6 +1,6 @@
 # Light Curve Simulator (licsim)
 
-Simulates continuum and emission line light curves from (actice galactic nuclei)[https://en.wikipedia.org/wiki/Active_galactic_nucleus].
+Simulates continuum and emission line light curves from [actice galactic nuclei](https://en.wikipedia.org/wiki/Active_galactic_nucleus).
 
 ## Basic usage
 
@@ -27,4 +27,4 @@ The code uses a Gaussian random process to simulate the continuum emission from 
 
 ## More information
 
-For more information on the modeling of AGN variability see e.g. (MacLeod et al. (2010))[http://adsabs.harvard.edu/abs/2010ApJ...721.1014M].
+For more information on the modeling of AGN variability see e.g. [MacLeod et al. (2010)](http://adsabs.harvard.edu/abs/2010ApJ...721.1014M).
