@@ -18,11 +18,11 @@ To run simply type
 
 where
 
-* length: Length of the light curves in arbitrary units
-* dt: Time resolution in arbitrary units
-* mean: Mean flux of the light curve
-* SF: Structure function for the Gaussian process simulation
-* tau: Characteristic time scale for the Gaussian process simulation
+* length: Length of the light curves in arbitrary units.
+* dt: Time resolution in arbitrary units.
+* mean: Mean flux of the light curve.
+* SF: Structure function for the Gaussian process simulation.
+* tau: Characteristic time scale for the Gaussian process simulation.
 
 ### Output
 
