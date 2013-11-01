@@ -27,6 +27,9 @@ int main (int argc, char *argv[])
     double *l = new double[length];
 
     // Generate continuum light curve
+    // Example to get parameters from MacLeod
+    // macleod_parameters(sf, tau, 3000.0, -23.0, 12.0, 2.0);
+
     gaussian_process(length, t, c, dt, mean, sf, tau);
 
     // Convolve continuum with transfer function to get the emission line light curve
