@@ -2,6 +2,10 @@
 
 Simulates continuum and emission line light curves from [active galactic nuclei](https://en.wikipedia.org/wiki/Active_galactic_nucleus).
 
+## Description
+
+The code uses a Gaussian random process to simulate the continuum emission from an AGN. It then convolves the continuum light curve with a transfer function modeled as a gamma distribution to create the emission line light curve.
+
 ## Basic usage
 
 ### Compiling
@@ -34,14 +38,15 @@ For convenience you can pipe the output by doing
 
     ./licsim [length] [dt] [mean] [SF] [tau] > lightcurves.txt
 
-## Description
+## Requirements
 
-The code uses a Gaussian random process to simulate the continuum emission from an AGN. It then convolves the continuum light curve with a transfer function modeled as a gamma distribution to create the emission line light curve.
+* C++11 compatible compiler
 
 ## Issues
 
 * Transfer function is hard coded at the moment, so if you want to change it you will have to manually edit the source.
 * Light curves are *not* truncated after convolution. This means that fluxes in the emission line light curve at early times are wrong, because information required to do the convolution is missing in the continuum light curve. In this case the continuum is only convolved with parts of the transfer function. If you want to use the code in its current state you should truncate the emission line light curves at early epochs.
+* The random generator is seeded from system clock at runtime. If several processes are spawned in quick succession this may cause trouble.
 
 ## More information
 
