@@ -11,7 +11,6 @@ void transfer_convolution_gamma(int length, double* t, double* c, double* l, dou
 
     for (int i = 0; i < tf_length; i++) {
         tf[i] = pow(i*dt, k-1.0) * exp(-i*dt/theta) / pow(theta,k) / std::tgamma(k);
-        l[i] = tf[i];
     }
 
     // Convolve with the continuum light curve to get the emission line light curve
