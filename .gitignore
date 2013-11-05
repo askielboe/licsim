@@ -1,4 +1,10 @@
+# Compiler files
 *.a
 *.so
+
+# Executables
 licsim
+licsim_class
+
+# Data files
 *.txt
