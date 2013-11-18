@@ -3,8 +3,7 @@
 *.so
 
 # Executables
-licsim
-licsim_class
+licsim_example
 
 # Data files
 *.txt

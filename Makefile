@@ -1,10 +1,8 @@
 CC=g++
 CFLAGS=-c -Wall -fopenmp
-#LDFLAGS=-fopenmp
-SOURCES=licsim_class.c++ LightCurve.c++
-#SOURCES=licsim.c++ gaussian_process.c++ transfer_convolutions.c++
+SOURCES=licsim_example.c++ LightCurve.c++
 OBJECTS=$(SOURCES:.cpp=.o)
-EXECUTABLE=licsim_class
+EXECUTABLE=licsim_example
 
 all: $(SOURCES) $(EXECUTABLE)
 
