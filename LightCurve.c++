@@ -3,9 +3,14 @@
 LightCurve::LightCurve (int len_in) {
     // Initialize class
     len = len_in;
+    t.resize(len);
+    cont.resize(len);
+    line.resize(len);
+    cont_err.resize(len);
+    line_err.resize(len);
 }
 
-void LightCurve::genCont (double dt, double mu, double sf, double tau) {
+void LightCurve::genCont (double dt, double mu, double tau, double sf) {
     // Based on equation 6 in MacLeod et al. 2010
     double exponential = exp(-dt/tau);
     double norm = mu * (1.0 - exponential);
@@ -26,6 +31,40 @@ void LightCurve::genCont (double dt, double mu, double sf, double tau) {
         std::normal_distribution<double> distribution(E, var);
         cont[i] = distribution(generator);
         t[i] = t[i-1] + dt;
+    }
+}
+
+void LightCurve::genLine (double lag) {
+    // Convolve with delta function transfer function
+    double tmax = 50;
+    int width = 2;
+    int tf_len = tmax;
+
+    double *tf = new double[tf_len];
+
+    for (int i = 0; i < tf_len; i++) {
+        if (i >= lag - width && i <= lag + width) {
+            tf[i] = 1.0/(2*width);
+        }
+        else {
+            tf[i] = 0.0;
+        }
+    }
+
+    // Convolve with the continuum light curve to get the emission line light curve
+    for (int i = 0; i < len; i++) {
+        line[i] = 0.0;
+        // Loop over transfer function to sum up the flux for the emission line at time i*dt
+        if (i < tf_len) {
+            for (int j = 0; j <= i; j++) {
+                line[i] += tf[j] * cont[i-j]; // Transfer equation
+            }
+        }
+        else {
+            for (int j = 0; j < tf_len; j++) {
+                line[i] += tf[j] * cont[i-j]; // Transfer equation
+            }
+        }
     }
 }
 
@@ -94,3 +133,44 @@ void LightCurve::getMacLeodParameters (double& tau, double& sf, double lambdarf,
 
     tau = exp(logtau);
 }
+
+void LightCurve::addGaussianNoise (double SNR) {
+    // Adds simple Gaussian noise in each light curve individually
+
+    std::default_random_engine generator;
+    generator.seed(time(NULL));
+
+    double std_noise;
+
+    for (int i = 0; i < len; i++) {
+        std_noise = std::fabs(cont[i]) / SNR;
+        std::normal_distribution<double> distribution(cont[i], std_noise);
+
+        cont[i] = distribution(generator);
+        cont_err[i] = std_noise;
+    }
+
+    for (int i = 0; i < len; i++) {
+        std_noise = std::fabs(line[i]) / SNR;
+        std::normal_distribution<double> distribution(line[i], std_noise);
+
+        line[i] = distribution(generator);
+        line_err[i] = std_noise;
+    }
+}
+
+// void LightCurve::genObserved (double cadence) {
+//     // Remove points in the light curves to match cadence
+//     double baseline = t[len-1] - t[0];
+//     int len_new = (int)(baseline / cadence);
+
+
+// }
+
+// void LightCurve::getCCF (double minLag=-50, double maxLag=100, double resLag=1) {
+
+//     // First do interpolation
+//     double *cont_interpolated = new double[len];
+//     double *line_interpolated = new double[len];
+// }
+

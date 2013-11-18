@@ -19,14 +19,15 @@ int main (int argc, char *argv[])
     // double tau = atof(argv[5]);
 
     // Get a light curve object
-    LightCurve lightcurve(100);
+    LightCurve lightcurve(1000);
 
     // Get random walk parameters from MacLeod fits
     double tau, sf;
     lightcurve.getMacLeodParameters(tau, sf, 5100.0, -23.0, 1e9, 0.0);
 
     // Generate continuum light curve
-    lightcurve.genCont(1.0, 0.0, 0.14, 2.0);
+    //lightcurve.genCont(1.0, 0.0, 2.0, 0.14);
+    lightcurve.genCont(1.0, 0.0, tau, sf);
 
     // Convolve with gamma distribution transfer function
     lightcurve.genLine(2.0, 2.0);
