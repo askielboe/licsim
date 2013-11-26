@@ -160,6 +160,36 @@ void LightCurve::addGaussianNoise (double SNR) {
     }
 }
 
+void LightCurve::saveToFiles(string prefix) {
+
+    ofstream outfile;
+    int tf_len = tf_max / dt;
+
+    // Write continuum light curve
+    outfile.open (prefix + string("_cont.txt"));
+    for (int i = 0; i < len; i++) {
+        outfile << t[i]*86400 << " " << cont[i] << " " << cont_err[i] << "\n";
+    }
+    outfile.close();
+
+    // Write continuum light curve
+    outfile.open (prefix + string("_line.txt"));
+    for (int i = 0; i < len; i++) {
+        outfile << t[i]*86400 << " " << line[i] << " " << line_err[i] << "\n";
+    }
+    outfile.close();
+
+    // Write transfer function
+    double *tf = getTransferFunctionGamma (gamma_k, gamma_theta);
+
+    outfile.open (prefix + string("_tfun.txt"));
+    for (int i = 0; i < tf_len; i++) {
+        outfile << t[i]*86400 << " " << tf[i] << "\n";
+    }
+    outfile.close();
+
+}
+
 // void LightCurve::genObserved (double cadence) {
 //     // Remove points in the light curves to match cadence
 //     double baseline = t[len-1] - t[0];

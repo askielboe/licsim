@@ -36,4 +36,10 @@ int main (int argc, char *argv[])
     for (int i = 0; i < lightcurve.len; i++) {
         cout << lightcurve.t[i] << ' ' << lightcurve.cont[i] << ' ' << lightcurve.line[i] << '\n';
     }
+    lightcurve.saveToFiles("licsim");
+
+    // // Print output to prompt
+    // for (int i = 0; i < lightcurve.len; i++) {
+    //     cout << lightcurve.t[i] << ' ' << lightcurve.cont[i] << ' ' << lightcurve.line[i] << '\n';
+    // }
 }

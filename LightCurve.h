@@ -1,6 +1,9 @@
 #include <vector>       // vector
 #include <cmath>
 #include <random>
+#include <string>
+#include <fstream>
+#include <iostream>
 
 using namespace std;
 
@@ -37,4 +40,5 @@ class LightCurve {
         void genLine (double, double);
         void getMacLeodParameters (double&, double&, double, double, double, double);
         void addGaussianNoise(double);
+        void saveToFiles(string);
 };
