@@ -15,6 +15,7 @@ void LightCurve::genCont (double dt, double mu, double tau, double sf) {
     double exponential = exp(-dt/tau);
     double norm = mu * (1.0 - exponential);
     double var = 0.5 * pow(sf, 2.0) * (1.0 - exp(-2.0*dt/tau));
+    double std = sqrt(var);
 
     // Initialize random number generator (C++11)
     std::default_random_engine generator;
@@ -22,13 +23,13 @@ void LightCurve::genCont (double dt, double mu, double tau, double sf) {
 
     // Calculate the first values
     t[0] = 0.0;
-    std::normal_distribution<double> distribution(mu, var);
+    std::normal_distribution<double> distribution(mu, std);
     cont[0] = distribution(generator);
 
     // Calculate subsequent values
     for (int i = 1; i < len; i++) {
         double E = exponential * cont[i-1] + norm;
-        std::normal_distribution<double> distribution(E, var);
+        std::normal_distribution<double> distribution(E, std);
         cont[i] = distribution(generator);
         t[i] = t[i-1] + dt;
     }
